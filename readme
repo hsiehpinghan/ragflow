@@ -1,0 +1,28 @@
+# create miniconda virtual machine (linux)
+
+cd /tmp
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+sh Miniconda3-latest-Linux-x86_64.sh -b
+/home/hsiehpinghan/miniconda3/bin/conda create --name python3.10 python=3.10
+export MINICONDA_HOME=/home/hsiehpinghan/miniconda3
+export PATH=$MINICONDA_HOME/bin:$PATH
+conda init bash
+cd /home/hsiehpinghan/git/ragflow/notebook
+conda activate python3.10
+
+# start miniconda jupyter notebook (linux)
+
+export ANACONDA_HOME=/home/hsiehpinghan/anaconda3
+export PATH=$ANACONDA_HOME/bin:$PATH
+cd /home/hsiehpinghan/git/ragflow/notebook
+conda activate python3.10
+jupyter notebook
+
+# run
+sudo sysctl -w vm.max_map_count=262144
+cd /home/hsiehpinghan/git/ragflow/docker
+chmod +x ./entrypoint.sh
+docker compose up -d
+docker logs -f ragflow-server
+http://localhost
+
